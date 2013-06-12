@@ -119,7 +119,7 @@ public class Admin extends Controller {
         renderTemplate("@id", id);
     }
 
-    public static void editService(@Required Long id, String name, Long xCoordinate, Long yCoordinate, Long zoomLevel)
+    public static void editService(@Required Long id, String name, String title, Long xCoordinate, Long yCoordinate, Long zoomLevel)
     {
         MapService service = MapService.findById(id);
         if (service == null)
@@ -127,6 +127,8 @@ public class Admin extends Controller {
 
         if (name != null)
             service.displayName = name;
+        if (title != null)
+            service.armsTitle = title;
         if (xCoordinate != null && yCoordinate != null && zoomLevel != null)
         {
             service.xCoordinate = xCoordinate;

@@ -47,7 +47,7 @@
         #{else}
         <a href="#" class="service-showlocation" data-id="${service.id}" data-location="${service.xCoordinate}|${service.yCoordinate}|${service.zoomLevel}"><img class="arms" alt="&{'app.layersSwitcher.arms'}" src="@{'/public/images/arms_default.png'}" /></a>
         #{/else}
-        <h4>${service.displayName}</h4>
+        <h4 data-title="${service.armsTitle}">${service.displayName}</h4>
         #{if _admin}
         <div class="pull-right">
           <i class="service-setarms icon-white icon-bookmark" data-id="${service.id}"></i>

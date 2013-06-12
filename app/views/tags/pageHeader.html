@@ -8,7 +8,12 @@
     #{if play.mvc.Scope.RenderArgs.current().systhermInstallationArms}
     <img id="app_arms" src="@{'/public/images/arms'}/${play.mvc.Scope.RenderArgs.current().systhermInstallationArms}" alt="${play.mvc.Scope.RenderArgs.current().systhermInstallation}" />
     #{/if}
-    <h1 id="app_title">${play.mvc.Scope.RenderArgs.current().systhermInstallation}</h1>
+    #{if play.mvc.Scope.RenderArgs.current().systhermInstallationTitle}
+        <h1 id="app_title">${play.mvc.Scope.RenderArgs.current().systhermInstallationTitle}</h1>
+    #{/if}
+    #{else}
+        <h1 id="app_title">${play.mvc.Scope.RenderArgs.current().systhermInstallation}</h1>
+    #{/else}
 #{/if}
 #{else}
     #{if play.mvc.Scope.RenderArgs.current().appOwner}

@@ -34,6 +34,7 @@ public class SysthermInstallation extends Controller {
         renderArgs.put("mapInitialY", service.xCoordinate);
         renderArgs.put("mapInitialZ", service.zoomLevel);
         renderArgs.put("systhermInstallation", service.name);
+        renderArgs.put("systhermInstallationTitle", service.armsTitle);
         renderArgs.put("systhermInstallationArms", service.coatOfArms);
         renderArgs.put("systhermSourceId", service.mapSource.id);
         renderArgs.put("systhermServiceId", service.id);

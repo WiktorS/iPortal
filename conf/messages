@@ -47,6 +47,7 @@ app.admin.addWMS=Nowa usługa WMS
 
 app.admin.edit=Edycja nazwy
 app.admin.name=Nazwa
+app.admin.title=Tytuł
 app.admin.saveButton=Zapisz
 app.admin.saveButtonLoading=Zapisuje...
 

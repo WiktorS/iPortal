@@ -14,6 +14,8 @@ public class MapService extends Model {
     @Required
     public String displayName;
 
+    public String armsTitle;
+
     @Required
     public String url;
 

@@ -76,8 +76,13 @@ activateEditModal = ->
     $("#adminEditModal .modal-footer a").attr "disabled", !canSaveEdit()
   $("#adminEditName").on "input", ->
     $("#adminEditName .modal-footer a").attr "disabled", !canSaveEdit()
+  $("#adminEditServiceModal").on "shown", ->
+    $("#adminEditServiceModal .modal-footer a").attr "disabled", !canSaveServiceEdit()
+  $("#adminEditServiceName").on "input", ->
+    $("#adminEditServiceName .modal-footer a").attr "disabled", !canSaveServiceEdit()
 
 canSaveEdit = -> $("#adminEditName").val().length
+canSaveServiceEdit = -> $("#adminEditServiceName").val().length
 
 activateLocationsTree = ->
   $("#locations h3, #locations h4, #locations i.icon-plus, #locations i.icon-minus").click -> PORTAL.Handlers.treeClick $(this)
@@ -302,20 +307,23 @@ PORTAL.Admin.editSource = (element) ->
 PORTAL.Admin.editService = (element) ->
   wmsId = element.data("id")
   treeTextItem = element.parent().siblings("h3,h4,label")
-  $("#adminEditName").val treeTextItem.text()
-  $("#adminEditModal .modal-footer a").off("click").on "click", ->
-    if canSaveEdit()
-      $("#adminEditModal .modal-footer a").attr "disabled", true
-      name = $("#adminEditName").val()
+  $("#adminEditServiceName").val treeTextItem.text()
+  $("#adminEditServiceTitle").val treeTextItem.data("title")
+  $("#adminEditServiceModal .modal-footer a").off("click").on "click", ->
+    if canSaveServiceEdit()
+      $("#adminEditServiceModal .modal-footer a").attr "disabled", true
+      name = $("#adminEditServiceName").val()
+      title = $("#adminEditServiceTitle").val()
       $.ajax {
         type: "PUT",
         url: "admin/editService",
-        data: {id: wmsId, name: name},
+        data: {id: wmsId, name: name, title: title},
         success: (result) ->
           treeTextItem.text name
-          $("#adminEditModal").modal "hide"
+          treeTextItem.data "title", title
+          $("#adminEditServiceModal").modal "hide"
       }
-  $("#adminEditModal").modal 'show'
+  $("#adminEditServiceModal").modal 'show'
 
 PORTAL.Admin.editLayer = (element) ->
   layerId = element.data("id")
