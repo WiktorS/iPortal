@@ -35,17 +35,17 @@
     <button class="service-add btn" type="button" data-id="${source.id}">&{"app.admin.addWMS"}</button>
   #{/if}
   #{list source.webMapServices, as:'service'}
-  #{if _admin || models.MapServiceCollection.getInstance().canBeUsed(service)}
+  #{if _admin || models.MapServiceCollection.getInstance().canBeUsed(service, _installation)}
 
     <div class="tier2">
       <div class="tier2_header clearfix">
         <i class="icon-plus icon-white"></i>
         <input id="toggler-${source.id}-${service.id}" type="checkbox" class="wms-toggler" />
         #{if service.coatOfArms}
-        <a href="#" class="service-showlocation" data-id="${service.id}" data-location="${service.xCoordinate}|${service.yCoordinate}|${service.zoomLevel}"><img alt="&{'app.layersSwitcher.arms'}" src="@{'/public/images/arms'}/${service.coatOfArms}" /></a>
+        <a href="#" class="service-showlocation" data-id="${service.id}" data-location="${service.xCoordinate}|${service.yCoordinate}|${service.zoomLevel}"><img class="arms" alt="&{'app.layersSwitcher.arms'}" src="@{'/public/images/arms'}/${service.coatOfArms}" /></a>
         #{/if}
         #{else}
-        <a href="#" class="service-showlocation" data-id="${service.id}" data-location="${service.xCoordinate}|${service.yCoordinate}|${service.zoomLevel}"><img alt="&{'app.layersSwitcher.arms'}" src="@{'/public/images/arms_default.png'}" /></a>
+        <a href="#" class="service-showlocation" data-id="${service.id}" data-location="${service.xCoordinate}|${service.yCoordinate}|${service.zoomLevel}"><img class="arms" alt="&{'app.layersSwitcher.arms'}" src="@{'/public/images/arms_default.png'}" /></a>
         #{/else}
         <h4>${service.displayName}</h4>
         #{if _admin}

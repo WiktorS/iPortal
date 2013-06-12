@@ -2,6 +2,8 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
+%{ domain = play.configuration.getProperty('app.domain', 'localhost') }%
+
 # Administration panel
 GET     /panel/login                            Admin.login
 GET     /panel/logout                           Admin.logout
@@ -27,13 +29,14 @@ PUT     /admin/changeResolutions                Admin.changeResolutions
 POST    /admin/uploadArms                       Admin.uploadArms
 POST    /admin/uploadOwnerArms                  Admin.uploadOwnerArms
 
+# Systherm Installation
+GET    {installation}.${domain}/?               SysthermInstallation.index
+GET    /systherm/{installation}                 SysthermInstallation.index
+
 # Main
 GET     /getCapabilities/{serviceUrl}           CapabilitiesGetter.getCapabilities
 GET     /x/{x}/y/{y}/z/{z}                      Application.index
-GET     /                                       Application.index
-
-# Systherm Installation
- GET    /systherm/{installation}                SysthermInstallation.index
+GET     /?                                      Application.index
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

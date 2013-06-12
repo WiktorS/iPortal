@@ -1,19 +1,43 @@
 #app_header {
-  overflow: hidden;
-  p {
-    float: right;
-    margin-right: 60px;
-    margin-top: 10px;
-    font-size: 14pt;
-    font-style: italic;
-  }
-  img.name {
+  verflow: hidden;
+  z-index: 999;
+
+  img {
     height: 50px;
   }
-  img.arms {
-    position: absolute;
-    top: 3px;
-    z-index: 2;
-    right: 5px;
+
+  div {
+    background-color: #121417;
+    height: 50px;
+    padding: 5px;
+  }
+
+  .logo {
+    z-index: 999;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    opacity: 0.75;
+    padding-left: 20px;
+    width: 200px;
+  }
+
+  .arms {
+    z-index: 999;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    opacity: 0.75;
+    padding-right: 20px;
+    min-width: 300px;
+
+    h1 {
+      margin-left: 10px;
+    }
+  }
+
+  #app_title {
+    display: inline-block;
+    vertical-align: middle;
   }
 }

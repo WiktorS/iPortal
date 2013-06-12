@@ -34,7 +34,7 @@ PORTAL.Utils.sortLayers = ->
     listOfLayers.push {
     layer: layer
     oldVisibility: layer.getVisibility(),
-    newZIndex: layersCount - i - 1
+    newZIndex: layersCount - i
     }
     layer.setVisibility false
   PORTAL.map.setLayerIndex layer.layer, layer.newZIndex for layer in listOfLayers

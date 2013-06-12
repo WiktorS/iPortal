@@ -1,7 +1,6 @@
 package controllers;
 
 import models.*;
-import play.Logger;
 import play.mvc.Controller;
 import play.mvc.With;
 
@@ -19,6 +18,7 @@ import java.util.List;
 public class SysthermInstallation extends Controller {
 
     public static void index(String installation) {
+        installation = installation.replaceFirst("^www\\.", "");
         MapService service = MapServiceCollection.getInstance().findByName(installation);
         if (service==null) {
             notFound(installation);
@@ -26,13 +26,15 @@ public class SysthermInstallation extends Controller {
         List<MapSource> sources = MapSourceCollection.getInstance().allSortedBy("sort, id");
         List<MapLocation> locations = MapLocationCollection.getInstance().topLevel();
         sendAdditionalArgumentsToTemplate(service);
-        renderTemplate("Application/index.html", sources, locations);
+        renderTemplate("Application/index.html", sources, locations, installation);
     }
 
     private static void sendAdditionalArgumentsToTemplate(MapService service) {
         renderArgs.put("mapInitialX", service.yCoordinate);
         renderArgs.put("mapInitialY", service.xCoordinate);
         renderArgs.put("mapInitialZ", service.zoomLevel);
+        renderArgs.put("systhermInstallation", service.name);
+        renderArgs.put("systhermInstallationArms", service.coatOfArms);
         renderArgs.put("systhermSourceId", service.mapSource.id);
         renderArgs.put("systhermServiceId", service.id);
         MapLayer layer = MapLayerCollection.getInstance().getByNameFromMapService(service, "gminy");

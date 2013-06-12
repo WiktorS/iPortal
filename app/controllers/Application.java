@@ -1,10 +1,13 @@
 package controllers;
 
-import play.mvc.*;
+import models.MapLocation;
+import models.MapLocationCollection;
+import models.MapSource;
+import models.MapSourceCollection;
+import play.mvc.Controller;
+import play.mvc.With;
 
-import java.util.*;
-
-import models.*;
+import java.util.List;
 
 @With(CommonData.class)
 public class Application extends Controller {

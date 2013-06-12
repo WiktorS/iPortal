@@ -45,7 +45,9 @@ PORTAL.createControllers = ->
   }
 
 
-  PORTAL.map.addControl new OpenLayers.Control.PanZoomBar
+  PORTAL.map.addControl new OpenLayers.Control.PanZoomBar {
+    position: new OpenLayers.Pixel(4, 34)
+  }
 
 
   PORTAL.map.addControl new OpenLayers.Control.Navigation {
