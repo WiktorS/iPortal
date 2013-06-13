@@ -10,7 +10,7 @@ PORTAL.setTopLevelLayout = ->
     togglerTip_open: "zamknij"
     togglerTip_closed: "otwórz"
     minSize: 250
-    size: 450
+    size: 300
     maxSize: 600
     spacing_open: 5
     spacing_closed: 5
