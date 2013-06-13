@@ -12,11 +12,16 @@ import java.util.List;
 @With(CommonData.class)
 public class Application extends Controller {
 
-    public static void index(Long x, Long y, Long z) {
+    public static void index(Long x, Long y, Long z, Boolean logo, Boolean sidebar) {
+        if (logo == null)
+            logo = true;
+        if (sidebar == null)
+            sidebar = true;
         Application.sendArgumentsToMap(x, y, z);
         List<MapSource> sources = MapSourceCollection.getInstance().allSortedBy("sort, id");
         List<MapLocation> locations = MapLocationCollection.getInstance().topLevel();
-        render(sources, locations);
+
+        render(sources, locations, logo, sidebar);
     }
 
     private static void sendArgumentsToMap(Long cartographerXCoordinate, Long cartographerYCoordinate, Long zoomLevel) {

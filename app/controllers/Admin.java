@@ -37,9 +37,11 @@ public class Admin extends Controller {
     }
 
     public static void index() {
+        Boolean logo = true;
+        Boolean sidebar = true;
         List<MapSource> sources = MapSourceCollection.getInstance().allSortedBy("sort, id");
         List<MapLocation> locations = MapLocationCollection.getInstance().topLevel();
-        render(sources, locations);
+        render(sources, locations, logo, sidebar);
     }
 
     public static void login() {
@@ -53,7 +55,7 @@ public class Admin extends Controller {
 
     public static void logout() throws Throwable {
         session.clear();
-        Application.index(null, null, null);
+        Application.index(null, null, null, null, null);
     }
 
     public static void authenticate(String password) {

@@ -17,7 +17,11 @@ import java.util.List;
 @With(CommonData.class)
 public class SysthermInstallation extends Controller {
 
-    public static void index(String installation) {
+    public static void index(String installation, Boolean logo, Boolean sidebar) {
+        if (logo == null)
+            logo = true;
+        if (sidebar == null)
+            sidebar = true;
         installation = installation.replaceFirst("^www\\.", "");
         MapService service = MapServiceCollection.getInstance().findByName(installation);
         if (service==null) {
@@ -26,7 +30,7 @@ public class SysthermInstallation extends Controller {
         List<MapSource> sources = MapSourceCollection.getInstance().allSortedBy("sort, id");
         List<MapLocation> locations = MapLocationCollection.getInstance().topLevel();
         sendAdditionalArgumentsToTemplate(service);
-        renderTemplate("Application/index.html", sources, locations, installation);
+        renderTemplate("Application/index.html", sources, locations, installation, logo, sidebar);
     }
 
     private static void sendAdditionalArgumentsToTemplate(MapService service) {

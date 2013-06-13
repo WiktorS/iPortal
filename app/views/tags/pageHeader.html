@@ -1,9 +1,15 @@
-<div class="logo">
+#{if _logo}
+<div class="header logo background">
+</div>
+<div class="header logo">
     <img class="name" src="@{'/public/images/app_logo.png'}" alt="&{'app.name'}" />
 </div>
+#{/if}
 
 
-<div class="arms">
+<div class="header arms background">
+</div>
+<div class="header arms">
 #{if play.mvc.Scope.RenderArgs.current().systhermInstallation}
     #{if play.mvc.Scope.RenderArgs.current().systhermInstallationArms}
     <img id="app_arms" src="@{'/public/images/arms'}/${play.mvc.Scope.RenderArgs.current().systhermInstallationArms}" alt="${play.mvc.Scope.RenderArgs.current().systhermInstallation}" />
