@@ -129,8 +129,7 @@ priv.hasMapProjection = (xml) ->
 
 priv.addLayers = (xml) ->
   xml.find("Layer").each (i,layer) ->
-    if priv.isQueryable layer
-      priv.addLayer layer
+    priv.addLayer layer
 
 priv.isQueryable = (layer) ->
   $(layer).attr("queryable")=="1"
