@@ -96,5 +96,6 @@ app.tooltips.remove=usuwanie
 app.tooltips.edit=edycja
 app.tooltips.view=podgląd
 app.tooltips.layerDefaultVisible=warstwa domyślnie widoczna
+app.tooltips.layerLogo=logo
 app.tooltips.setLocation=bieżący widok mapy jako położenie
 app.tooltips.setArms=zmiana godła WMS
