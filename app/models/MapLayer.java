@@ -21,6 +21,8 @@ public class MapLayer extends Model {
 
     public String additionalOptions;
 
+    public String logo;
+
     public Long sort;
 
     @ManyToOne

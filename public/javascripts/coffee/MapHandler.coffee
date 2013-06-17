@@ -100,9 +100,10 @@ addLayersToMap = ->
       format: "image/png"
       initialize: (name, url, layername, options) ->
           @layername = layername
+          @tileSize = new OpenLayers.Size(1000, 339)
           OpenLayers.Layer.Grid.prototype.initialize.apply(this, [name, url, {}, options])
       getURL: (bounds) -> return @url
     )
-  waterMarkLayerMap = new staticTileLayer "watermark", "/public/images/blank.png", "watermark"
+  waterMarkLayerMap = new staticTileLayer "watermark", "/public/images/watermark.png", "watermark"
   PORTAL.map.addLayer waterMarkLayerMap
   PORTAL.map.setLayerIndex waterMarkLayerMap, 0

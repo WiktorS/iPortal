@@ -20,6 +20,8 @@ PORTAL.activateAdmin = ->
   $(".service-edit").click -> PORTAL.Admin.editService $(this)
   $(".location-edit").click -> PORTAL.Admin.editLocation $(this)
 
+  $(".layer-logo").click -> PORTAL.Admin.editLogoLayer $(this)
+
 activateAjaxErrors = ->
   $.ajaxSetup {
     beforeSend: ->
@@ -218,6 +220,7 @@ PORTAL.Admin.setServiceArms = (element) ->
   wmsId = element.data("id")
   input = $("<input/>", {type: "hidden", name: "id", value: wmsId})
   $("#adminUploadModal form").append(input)
+  $("#adminUploadModal form").attr("action","/admin/uploadArms")
   $("#adminUploadModal iframe").off("load").on "load", ->
     if $(this).contents().text().length
       $("#adminUploadModal").find(".spinner, .alert").hide()
@@ -360,3 +363,22 @@ PORTAL.Admin.editLocation = (element) ->
           $("#adminEditModal").modal "hide"
       }
   $("#adminEditModal").modal 'show'
+
+PORTAL.Admin.editLogoLayer = (element) ->
+  layerId = element.data("id")
+  treeTextItem = element.parent().siblings("h3,h4,label")
+  input = $("<input/>", {type: "hidden", name: "id", value: layerId})
+  $("#adminUploadModal form").append(input)
+  $("#adminUploadModal form").attr("action","/admin/uploadLogo")
+  $("#adminUploadModal iframe").off("load").on "load", ->
+    if $(this).contents().text().length
+      $("#adminUploadModal").find(".spinner, .alert").hide()
+      result = $(this).contents().find("img.result")
+      img = element.closest(".tier2").find(".service-showlocation > img")
+      if result.length
+        $("#adminUploadModal .alert-success").show 'fast'
+        img?.attr("src", result.attr("src"))
+      else
+        $("#adminUploadModal .alert-error > span").text $(this).contents().find("title").text()
+        $("#adminUploadModal .alert-error").show 'fast'
+  $("#adminUploadModal").modal 'show'

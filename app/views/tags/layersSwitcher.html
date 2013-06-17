@@ -64,10 +64,14 @@
         <div class="tier3">
           <div class="tier3_content clearfix">
             <input id="toggler-${source.id}-${service.id}-${layer.id}" type="checkbox" class="layer-toggler" />
+            #{if layer.logo}
+            <img class="arms" alt="${layer.displayName}" src="@{'/public/images/layers'}/${layer.logo}" />
+            #{/if}
             <label for="toggler-${source.id}-${service.id}-${layer.id}">${layer.displayName}</label>
             #{if _admin}
             <div class="pull-right">
               <i class="layer-default ${layer.defaultVisible ? 'icon-white' : ''} icon-eye-open" data-id="${layer.id}"></i>
+              <i class="layer-logo icon-white icon-file" data-id="${layer.id}" ></i>
               <i class="layer-edit icon-white icon-pencil" data-id="${layer.id}" ></i>
               <i class="layer-remove icon-white icon-remove" data-id="${layer.id}" ></i>
             </div>

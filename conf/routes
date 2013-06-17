@@ -28,6 +28,7 @@ PUT     /admin/changeBoundingBox                Admin.changeBoundingBox
 PUT     /admin/changeResolutions                Admin.changeResolutions
 POST    /admin/uploadArms                       Admin.uploadArms
 POST    /admin/uploadOwnerArms                  Admin.uploadOwnerArms
+POST    /admin/uploadLogo                       Admin.uploadLogo
 
 # Systherm Installation
 GET    {installation}.${domain}/?               SysthermInstallation.index
