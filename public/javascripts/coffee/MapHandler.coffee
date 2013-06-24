@@ -97,15 +97,15 @@ activateLayersSort = ->
 addLayersToMap = ->
   PORTAL.Utils.addLayer layer for layer in PORTAL.Layers.list
 
-  staticTileLayer = OpenLayers.Class(OpenLayers.Layer.Grid,
-      isBaseLayer: true
-      format: "image/png"
-      initialize: (name, url, layername, options) ->
-          @layername = layername
-          @tileSize = new OpenLayers.Size(1000, 339)
-          OpenLayers.Layer.Grid.prototype.initialize.apply(this, [name, url, {}, options])
-      getURL: (bounds) -> return @url
-    )
-  waterMarkLayerMap = new staticTileLayer "watermark", "/public/images/watermark.png", "watermark"
-  PORTAL.map.addLayer waterMarkLayerMap
-  PORTAL.map.setLayerIndex waterMarkLayerMap, 0
+#  staticTileLayer = OpenLayers.Class(OpenLayers.Layer.Grid,
+#      isBaseLayer: true
+#      format: "image/png"
+#      initialize: (name, url, layername, options) ->
+#          @layername = layername
+#          @tileSize = new OpenLayers.Size(1000, 339)
+#          OpenLayers.Layer.Grid.prototype.initialize.apply(this, [name, url, {}, options])
+#      getURL: (bounds) -> return @url
+#    )
+#  waterMarkLayerMap = new staticTileLayer "watermark", "/public/images/watermark.png", "watermark"
+#  PORTAL.map.addLayer waterMarkLayerMap
+#  PORTAL.map.setLayerIndex waterMarkLayerMap, 0
