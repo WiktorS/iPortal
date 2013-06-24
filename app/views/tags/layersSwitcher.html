@@ -65,7 +65,7 @@
           <div class="tier3_content clearfix">
             <input id="toggler-${source.id}-${service.id}-${layer.id}" type="checkbox" class="layer-toggler" />
             #{if layer.logo}
-            <img class="arms" alt="${layer.displayName}" src="@{'/public/images/layers'}/${layer.logo}" />
+            <img class="layer-logo" alt="${layer.displayName}" src="@{'/public/images/layers'}/${layer.logo}" />&nbsp;
             #{/if}
             <label for="toggler-${source.id}-${service.id}-${layer.id}">${layer.displayName}</label>
             #{if _admin}

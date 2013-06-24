@@ -1,11 +1,12 @@
 package controllers;
 
 import models.*;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.io.FileUtils;
 import play.Play;
 import play.data.validation.Required;
 import play.db.jpa.Transactional;
 import play.i18n.Messages;
-import play.libs.Codec;
 import play.libs.Files;
 import play.mvc.Before;
 import play.mvc.Controller;
@@ -14,9 +15,6 @@ import play.mvc.With;
 import play.vfs.VirtualFile;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.security.DigestInputStream;
-import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -405,14 +403,15 @@ public class Admin extends Controller {
     public static void uploadLogo(@Required Long id, @Required File uploadFile) throws Exception
     {
         MapLayer mapLayer = MapLayer.findById(id);
-        if (uploadFile == null)
+        if (uploadFile == null) {
             error(404, "File not found");
-        if (mapLayer == null)
+        }
+        if (mapLayer == null) {
             error(404, "Layer not found");
-        MessageDigest md5 = MessageDigest.getInstance("MD5");
-        FileInputStream stream = new FileInputStream(uploadFile);
-        DigestInputStream digestInputStream = new DigestInputStream(stream, md5);
-        mapLayer.logo = Codec.byteToHexString(md5.digest()) + "." + uploadFile.getName().split("\\.")[1];
+        }
+        String uploadFileMD5 = DigestUtils.md5Hex(FileUtils.readFileToByteArray(uploadFile));
+        String uploadFileExt = uploadFile.getName().split("\\.")[1];
+        mapLayer.logo = uploadFileMD5 + "." + uploadFileExt;
         mapLayer.save();
         File newPath = Play.getFile("public/images/layers/" + mapLayer.logo);
         Files.copy(uploadFile, newPath);
