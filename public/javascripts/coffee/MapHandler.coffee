@@ -67,7 +67,9 @@ createMap = ->
       PORTAL.configurationSettings.mapBoundingRight,
       PORTAL.configurationSettings.mapBoundingTop
     ),
-    resolutions: PORTAL.configurationSettings.mapResolutions
+    #resolutions: PORTAL.configurationSettings.mapResolutions
+    maxResolution: PORTAL.configurationSettings.mapMaxResolution
+    numZoomLevels: PORTAL.configurationSettings.mapZoomLevels
   }
 
 ###########################################################

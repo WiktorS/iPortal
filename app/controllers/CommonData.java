@@ -16,15 +16,17 @@ public class CommonData extends Controller {
     @Before
     private static void commonData() {
         renderArgs.put("useArms", Boolean.parseBoolean(MapSetting.findByKey(MapSetting.APPLICATION_ARMS).value));
-        renderArgs.put("appOwner", MapSetting.findByKey(MapSetting.APPLICATION_TITLE).value);
-        renderArgs.put("mapBoundingBoxLeft", MapSetting.findByKey(MapSetting.MAP_BOUNDINGBOX_LEFT).value);
-        renderArgs.put("mapBoundingBoxBottom", MapSetting.findByKey(MapSetting.MAP_BOUNDINGBOX_BOTTOM).value);
-        renderArgs.put("mapBoundingBoxRight", MapSetting.findByKey(MapSetting.MAP_BOUNDINGBOX_RIGHT).value);
-        renderArgs.put("mapBoundingBoxTop", MapSetting.findByKey(MapSetting.MAP_BOUNDINGBOX_TOP).value);
-        renderArgs.put("mapResolutions", MapSetting.findByKey(MapSetting.MAP_RESOLUTIONS).value);
-        renderArgs.put("mapInitialX", MapSetting.findByKey(MapSetting.MAP_INITIAL_Y_COORDINATE).value);
-        renderArgs.put("mapInitialY", MapSetting.findByKey(MapSetting.MAP_INITIAL_X_COORDINATE).value);
-        renderArgs.put("mapInitialZ", MapSetting.findByKey(MapSetting.MAP_INITIAL_Z).value);
+        renderArgs.put("appOwner", MapSetting.getValue(MapSetting.APPLICATION_TITLE, "Systherm-Info"));
+        renderArgs.put("mapBoundingBoxLeft", MapSetting.getValue(MapSetting.MAP_BOUNDINGBOX_LEFT, "130000"));
+        renderArgs.put("mapBoundingBoxBottom", MapSetting.getValue(MapSetting.MAP_BOUNDINGBOX_BOTTOM, "120000"));
+        renderArgs.put("mapBoundingBoxRight", MapSetting.getValue(MapSetting.MAP_BOUNDINGBOX_RIGHT, "980000"));
+        renderArgs.put("mapBoundingBoxTop", MapSetting.getValue(MapSetting.MAP_BOUNDINGBOX_TOP, "780000"));
+        renderArgs.put("mapResolutions", MapSetting.getValue(MapSetting.MAP_RESOLUTIONS, "1600,800,400,200,100,50,25,12.5,6.25,3.125,1.5625,0.78125"));
+        renderArgs.put("mapMaxResolution", MapSetting.getValue(MapSetting.MAP_MAX_RESOLUTION, "1600"));
+        renderArgs.put("mapZoomLevels", MapSetting.getValue(MapSetting.MAP_ZOOM_LEVELS, "16"));
+        renderArgs.put("mapInitialX", MapSetting.getValue(MapSetting.MAP_INITIAL_Y_COORDINATE, "460000"));
+        renderArgs.put("mapInitialY", MapSetting.getValue(MapSetting.MAP_INITIAL_X_COORDINATE, "500000"));
+        renderArgs.put("mapInitialZ", MapSetting.getValue(MapSetting.MAP_INITIAL_Z, "0"));
         renderArgs.put("urlSlashReplacement", Play.configuration.getProperty("url.slash_replacement"));
         renderArgs.put("systhermSourceId", 0);
         renderArgs.put("systhermServiceId", 0);

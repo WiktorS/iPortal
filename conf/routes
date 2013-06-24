@@ -26,6 +26,8 @@ PUT     /admin/changePassword                   Admin.changePassword
 PUT     /admin/changeInitialMap                 Admin.changeInitialMap
 PUT     /admin/changeBoundingBox                Admin.changeBoundingBox
 PUT     /admin/changeResolutions                Admin.changeResolutions
+PUT     /admin/changeMaxResolution              Admin.changeMaxResolution
+PUT     /admin/changeZoomLevels                 Admin.changeZoomLevels
 POST    /admin/uploadArms                       Admin.uploadArms
 POST    /admin/uploadOwnerArms                  Admin.uploadOwnerArms
 POST    /admin/uploadLogo                       Admin.uploadLogo

@@ -335,6 +335,35 @@ public class Admin extends Controller {
         renderJSON(resolutionsSetting);
     }
 
+    public static void changeMaxResolution(@Required Long maxResolution)
+    {
+        MapSetting resolutionsSetting   = MapSetting.findByKey(MapSetting.MAP_MAX_RESOLUTION);
+        if (resolutionsSetting == null) {
+            resolutionsSetting = new MapSetting();
+            resolutionsSetting.key = MapSetting.MAP_MAX_RESOLUTION;
+        }
+
+        resolutionsSetting.value = maxResolution.toString();
+        resolutionsSetting.save();
+
+        renderJSON(resolutionsSetting);
+    }
+
+    public static void changeZoomLevels(@Required Long zoomLevels)
+    {
+        MapSetting resolutionsSetting   = MapSetting.findByKey(MapSetting.MAP_ZOOM_LEVELS);
+        if (resolutionsSetting == null) {
+            resolutionsSetting = new MapSetting();
+            resolutionsSetting.key = MapSetting.MAP_ZOOM_LEVELS;
+        }
+
+        resolutionsSetting.value = zoomLevels.toString();
+        resolutionsSetting.save();
+
+        renderJSON(resolutionsSetting);
+    }
+
+
     public static void uploadArms(@Required Long id, @Required File uploadFile) throws Exception
     {
         MapService mapService = MapService.findById(id);

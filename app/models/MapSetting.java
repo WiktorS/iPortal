@@ -30,6 +30,8 @@ public class MapSetting extends Model{
     public static final String MAP_BOUNDINGBOX_RIGHT = "map.bounding_box.right";
     public static final String MAP_BOUNDINGBOX_TOP = "map.bounding_box.top";
     public static final String MAP_RESOLUTIONS = "map.resolutions";
+    public static final String MAP_MAX_RESOLUTION = "map.maxResolution";
+    public static final String MAP_ZOOM_LEVELS = "map.zoomLevels";
     public static final String MAP_INITIAL_X_COORDINATE = "map.initial.cartographer_x_coordinate";
     public static final String MAP_INITIAL_Y_COORDINATE = "map.initial.cartographer_y_coordinate";
     public static final String MAP_INITIAL_Z = "map.initial.z";
@@ -40,6 +42,16 @@ public class MapSetting extends Model{
     public static MapSetting findByKey(String key)
     {
         return MapSetting.find("byKey", key).first();
+    }
+
+    public static String getValue(String key, String defValue)
+    {
+        MapSetting mapSetting = MapSetting.find("byKey", key).first();
+        if (mapSetting != null)
+        {
+            return mapSetting.value;
+        }
+        return defValue;
     }
 
     public static String encryptPassword(String password)

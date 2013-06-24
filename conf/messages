@@ -89,6 +89,14 @@ app.admin.resolutions=Rozdzielczość
 app.admin.resolutionsModal=Edycja rozdzielczości
 app.admin.resolutionsModalConfirm=Zapisz
 
+app.admin.maxResolution=Maksymalna rozdzielczość
+app.admin.maxResolutionModal=Edycja rozdzielczości
+app.admin.maxResolutionModalConfirm=Zapisz
+
+app.admin.zoomLevels=Liczba poziomów powiększenia
+app.admin.zoomLevelsModal=Edycja liczba poziomów powiększenia
+app.admin.zoomLevelsModalConfirm=Zapisz
+
 app.help.modalHeader=Informacje
 app.help.modalConfirm=Zamknij
 

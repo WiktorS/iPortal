@@ -2,7 +2,9 @@ PORTAL.activateAdminSettings = ->
   do activateInitialMap
   do activateArmsModal
   do activateBoundingBox
-  do activateresolutions
+  do activateResolutions
+  do activateMaxResolution
+  do activateZoomLevels
 
 
 activateInitialMap = ->
@@ -96,7 +98,7 @@ prepareBoundingBoxModal = ->
   $("#boundingBoxBottom").val PORTAL.configurationSettings.mapBoundingBottom
   $("#adminBBoxModal .modal-footer a").attr "disabled", false
 
-activateresolutions = ->
+activateResolutions = ->
   $(".resolutions-set").on "click", ->
     $("#adminResolutionsModal").modal 'show'
   $("#adminResolutionsModal").on "show", prepareResolutionsModal
@@ -105,13 +107,14 @@ activateresolutions = ->
   $("#adminResolutionsModal form #resolutions").on "input", ->
     $("#adminResolutionsModal .modal-footer a").attr "disabled", !validResolutionsString()
   $("#adminResolutionsModal .modal-footer a").on "click", ->
-    if validResolutionsString
+    if validResolutionsString()
       $.ajax {
         type: "PUT",
         url: "admin/changeResolutions",
         data: {resolutions: $("#adminResolutionsModal form #resolutions").val()},
         success: (result) ->
           PORTAL.map.setOptions {resolutions: result.value}
+          PORTAL.configurationSettings.mapResolutions = result.value.split(",")
           $("#adminResolutionsModal").modal 'hide'
       }
 
@@ -129,3 +132,60 @@ validResolutionsString = ->
 
 
 isNumber = (n) -> parseFloat(n).toString() == n.toString()
+
+activateMaxResolution = ->
+  $(".maxResolution-set").on "click", ->
+    $("#adminMaxResolutionModal").modal 'show'
+  $("#adminMaxResolutionModal").on "show", prepareMaxResolutionModal
+  $("#adminMaxResolutionModal").on "shown", ->
+    $("#adminMaxResolutionModal .modal-footer a").attr "disabled", !validMaxResolutionString()
+  $("#adminMaxResolutionModal form #maxResolution").on "input", ->
+    $("#adminMaxResolutionModal .modal-footer a").attr "disabled", !validMaxResolutionString()
+  $("#adminMaxResolutionModal .modal-footer a").on "click", ->
+    if validMaxResolutionString()
+      $.ajax {
+        type: "PUT",
+        url: "admin/changeMaxResolution",
+        data: {maxResolution: $("#adminMaxResolutionModal form #maxResolution").val()},
+        success: (result) ->
+          value = parseFloat(result.value)
+          PORTAL.map.setOptions {maxResolution: value}
+          PORTAL.configurationSettings.mapMaxResolution = value
+          $("#adminMaxResolutionModal").modal 'hide'
+      }
+
+prepareMaxResolutionModal = ->
+  $("#adminMaxResolutionModal form #maxResolution").val PORTAL.configurationSettings.mapMaxResolution
+
+validMaxResolutionString = ->
+  maxResolution = $("#adminMaxResolutionModal form #maxResolution").val()
+  isNumber maxResolution
+
+
+activateZoomLevels = ->
+  $(".zoomLevels-set").on "click", ->
+    $("#adminZoomLevelsModal").modal 'show'
+  $("#adminZoomLevelsModal").on "show", prepareZoomLevelsModal
+  $("#adminZoomLevelsModal").on "shown", ->
+    $("#adminZoomLevelsModal .modal-footer a").attr "disabled", !validZoomLevelsString()
+  $("#adminZoomLevelsModal form #maxResolution").on "input", ->
+    $("#adminZoomLevelsModal .modal-footer a").attr "disabled", !validZoomLevelsString()
+  $("#adminZoomLevelsModal .modal-footer a").on "click", ->
+    if validZoomLevelsString
+      $.ajax {
+        type: "PUT",
+        url: "admin/changeZoomLevels",
+        data: {zoomLevels: $("#adminZoomLevelsModal form #zoomLevels").val()},
+        success: (result) ->
+          value = parseFloat(result.value)
+          PORTAL.map.setOptions {zoomLevels: value}
+          PORTAL.configurationSettings.mapZoomLevels = value
+          $("#adminZoomLevelsModal").modal 'hide'
+      }
+
+prepareZoomLevelsModal = ->
+  $("#adminZoomLevelsModal form #zoomLevels").val PORTAL.configurationSettings.mapZoomLevels
+
+validZoomLevelsString = ->
+  maxResolution = $("#adminZoomLevelsModal form #zoomLevels").val()
+  isNumber maxResolution
