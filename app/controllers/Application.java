@@ -4,7 +4,10 @@ import models.MapLocation;
 import models.MapLocationCollection;
 import models.MapSource;
 import models.MapSourceCollection;
+import play.data.validation.Required;
+import play.libs.WS;
 import play.mvc.Controller;
+import play.mvc.Util;
 import play.mvc.With;
 
 import java.util.List;
@@ -24,6 +27,7 @@ public class Application extends Controller {
         render(sources, locations, logo, sidebar);
     }
 
+    @Util
     private static void sendArgumentsToMap(Long cartographerXCoordinate, Long cartographerYCoordinate, Long zoomLevel) {
         if (cartographerXCoordinate==null || cartographerYCoordinate==null || zoomLevel==null) {
             return;
@@ -31,6 +35,17 @@ public class Application extends Controller {
         renderArgs.put("mapInitialX", cartographerYCoordinate);
         renderArgs.put("mapInitialY", cartographerXCoordinate);
         renderArgs.put("mapInitialZ", zoomLevel);
+    }
+
+    public  static void proxy(@Required String url) {
+        if (url != null) {
+            WS.WSRequest request = WS.url(url);
+            request.timeout = 60;
+            renderHtml(request.get().getString());
+        }
+        else {
+            badRequest();
+        }
     }
 
 }

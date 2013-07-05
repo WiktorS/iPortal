@@ -22,12 +22,16 @@ app.controller.zoomIn=przybliż
 app.controller.saveUrl=zapisz odnośnik
 app.controller.goToLocation=przejdź do położenia
 app.controller.help=pomoc
+app.controller.logo=Wybierz plik
 
 app.getUrl.modalHeader=Zapisz odnośnik
 app.getUrl.modalConfirm=Zamknij
 
 app.goToLocation.modalHeader=Przejdź do położenia
 app.goToLocation.modalConfirm=Zamknij
+
+app.wmsInformation.modalHeader=Informacje o obiekcie
+app.wmsInformation.modalConfirm=Zamknij
 
 app.admin.modalHeader=Panel administracyjny
 app.admin.password=Hasło
@@ -48,6 +52,7 @@ app.admin.addWMS=Nowa usługa WMS
 app.admin.edit=Edycja nazwy
 app.admin.name=Nazwa
 app.admin.title=Tytuł
+app.admin.queryable=Obsługuje pobieranie informacje z WMS
 app.admin.saveButton=Zapisz
 app.admin.saveButtonLoading=Zapisuje...
 
@@ -63,10 +68,11 @@ app.admin.confirmPassword=Potwierdź nowe hasło
 app.admin.mapHeader=Ustawienia programu
 app.admin.initialMapCoordinates=Początkowe położenie mapy
 
-app.admin.uploadModal=Dodaj godło
-app.admin.uploadModalFile=Plik z godłem
+app.admin.uploadModal=Wybierz plik
+app.admin.uploadModalFile=Plik
 app.admin.uploadSuccess=Zmiany zostały zapisane
 app.admin.uploadModalSend=Wyślij
+app.admin.uploadModalRemove=Usuń
 app.admin.uploadModalConfirm=Zamknij
 
 app.admin.arms=Godło aplikacji

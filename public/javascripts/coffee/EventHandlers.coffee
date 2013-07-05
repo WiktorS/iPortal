@@ -101,7 +101,7 @@ PORTAL.Handlers.removeWms = (wms) ->
 
 
 PORTAL.Handlers.removeLayer = (layer) ->
-  layer.closest(".tier3").children(".tier3_content").find("input").each (i, elem) ->
+  layer.closest(".tier3").children(".tier3_header").find("input").each (i, elem) ->
     PORTAL.Utils.removeLayer PORTAL.Utils.buildIdWithPrefix $(elem).attr("id"), "layer"
   tier = layer.closest ".tier3"
   tier.hide "fast", ->

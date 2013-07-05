@@ -15,11 +15,8 @@
 
 #{extends 'layout.html' /}
 
-<div id="app_content" class="ui-layout-center">#{openLayersMap /}</div>
+<div id="app_content" class="ui-layout-center">#{openLayersMap logo:logo/}</div>
 <div class="ui-layout-west">
-  <div class="logo">
-    <img class="name" src="@{'/public/images/app_logo.png'}" alt="&{'app.name'}" />
-  </div>
   <div class="navbar">
     <div class="navbar-inner">
       <div class="container" style="width: auto;">
@@ -69,7 +66,8 @@
       name: "${layer.name}",
       displayName: "${layer.displayName}",
       defaultVisible: ${layer.defaultVisible},
-      additionalOptions: "${layer.additionalOptions}"
+      additionalOptions: "${layer.additionalOptions}",
+      queryable: ${layer.queryable}
     });
 
      #{/if}

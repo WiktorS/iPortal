@@ -169,16 +169,21 @@ public class Admin extends Controller {
         renderTemplate("@layers", layers);
     }
 
-    public static void editLayer(@Required Long id, String name, Boolean defaultVisible)
+    public static void editLayer(@Required Long id, String name, Boolean defaultVisible, Boolean queryable)
     {
         MapLayer layer = MapLayer.findById(id);
         if (layer == null)
             error(404, "Layer not found");
 
-        if (name != null)
+        if (name != null) {
             layer.displayName = name;
-        if (defaultVisible != null)
+        }
+        if (defaultVisible != null) {
             layer.defaultVisible = defaultVisible;
+        }
+        if (queryable != null) {
+            layer.queryable = queryable;
+        }
         layer.save();
         request.format = "json";
         renderTemplate("@id", id);
@@ -365,10 +370,12 @@ public class Admin extends Controller {
     public static void uploadArms(@Required Long id, @Required File uploadFile) throws Exception
     {
         MapService mapService = MapService.findById(id);
-        if (uploadFile == null)
+        if (uploadFile == null) {
             error(404, "File not found");
-        if (mapService == null)
+        }
+        if (mapService == null) {
             error(404, "Service not found");
+        }
         mapService.coatOfArms = uploadFile.getName();
         mapService.save();
         File newArms = Play.getFile("public/images/arms/" + uploadFile.getName());
@@ -400,7 +407,7 @@ public class Admin extends Controller {
         renderTemplate("@upload", armsUse, arms, title);
     }
 
-    public static void uploadLogo(@Required Long id, @Required File uploadFile) throws Exception
+    public static void uploadLayerLogo(@Required Long id, @Required File uploadFile) throws Exception
     {
         MapLayer mapLayer = MapLayer.findById(id);
         if (uploadFile == null) {
@@ -417,5 +424,57 @@ public class Admin extends Controller {
         Files.copy(uploadFile, newPath);
         Files.delete(uploadFile);
         renderTemplate("@upload");
+    }
+
+    public static void uploadSourceLogo(@Required Long id, @Required File uploadFile) throws Exception
+    {
+        MapSource mapSource = MapSource.findById(id);
+        if (uploadFile == null) {
+            error(404, "File not found");
+        }
+        if (mapSource == null) {
+            error(404, "Source not found");
+        }
+        String uploadFileMD5 = DigestUtils.md5Hex(FileUtils.readFileToByteArray(uploadFile));
+        String uploadFileExt = uploadFile.getName().split("\\.")[1];
+        mapSource.logo = uploadFileMD5 + "." + uploadFileExt;
+        mapSource.save();
+        File newPath = Play.getFile("public/images/sources/" + mapSource.logo);
+        Files.copy(uploadFile, newPath);
+        Files.delete(uploadFile);
+        renderTemplate("@upload");
+    }
+
+    public static void deleteArms(@Required Long id) throws Exception
+    {
+        MapService mapService = MapService.findById(id);
+        if (mapService == null) {
+            error(404, "Service not found");
+        }
+        mapService.coatOfArms = null;
+        mapService.save();
+        ok();
+    }
+
+    public static void deleteLayerLogo(@Required Long id) throws Exception
+    {
+        MapLayer mapLayer = MapLayer.findById(id);
+        if (mapLayer == null) {
+            error(404, "Layer not found");
+        }
+        mapLayer.logo = null;
+        mapLayer.save();
+        ok();
+    }
+
+    public static void deleteSourceLogo(@Required Long id) throws Exception
+    {
+        MapSource mapSource = MapSource.findById(id);
+        if (mapSource == null) {
+            error(404, "Source not found");
+        }
+        mapSource.logo = null;
+        mapSource.save();
+        ok();
     }
 }

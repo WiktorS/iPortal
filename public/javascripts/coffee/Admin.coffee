@@ -21,6 +21,7 @@ PORTAL.activateAdmin = ->
   $(".location-edit").click -> PORTAL.Admin.editLocation $(this)
 
   $(".layer-logo").click -> PORTAL.Admin.editLogoLayer $(this)
+  $(".source-logo").click -> PORTAL.Admin.editLogoSource $(this)
 
 activateAjaxErrors = ->
   $.ajaxSetup {
@@ -82,9 +83,14 @@ activateEditModal = ->
     $("#adminEditServiceModal .modal-footer a").attr "disabled", !canSaveServiceEdit()
   $("#adminEditServiceName").on "input", ->
     $("#adminEditServiceName .modal-footer a").attr "disabled", !canSaveServiceEdit()
+  $("#adminEditLayerModal").on "shown", ->
+    $("#adminEditLayerModal .modal-footer a").attr "disabled", !canSaveLayerEdit()
+  $("#adminEditLayerName").on "input", ->
+    $("#adminEditLayerName .modal-footer a").attr "disabled", !canSaveLayerEdit()
 
 canSaveEdit = -> $("#adminEditName").val().length
 canSaveServiceEdit = -> $("#adminEditServiceName").val().length
+canSaveLayerEdit = -> $("#adminEditLayerName").val().length
 
 activateLocationsTree = ->
   $("#locations h3, #locations h4, #locations i.icon-plus, #locations i.icon-minus").click -> PORTAL.Handlers.treeClick $(this)
@@ -221,6 +227,7 @@ PORTAL.Admin.setServiceArms = (element) ->
   input = $("<input/>", {type: "hidden", name: "id", value: wmsId})
   $("#adminUploadModal form").append(input)
   $("#adminUploadModal form").attr("action","/admin/uploadArms")
+  $("#adminUploadModal .modal-header h3").text(PORTAL.messages.logo)
   $("#adminUploadModal iframe").off("load").on "load", ->
     if $(this).contents().text().length
       $("#adminUploadModal").find(".spinner, .alert").hide()
@@ -231,6 +238,19 @@ PORTAL.Admin.setServiceArms = (element) ->
         img?.attr("src", result.attr("src"))
       else
         $("#adminUploadModal .alert-error > span").text $(this).contents().find("title").text()
+        $("#adminUploadModal .alert-error").show 'fast'
+  $("#adminUploadModal #removeFile").off("click").on "click", ->
+    $("#adminUploadModal").find(".spinner").show()
+    $.ajax
+      type: "DELETE"
+      url: "/admin/deleteArms"
+      data: {id: wmsId}
+      success: ->
+        $("#adminUploadModal").find(".spinner, .alert").hide()
+        $("#adminUploadModal .alert-success").show 'fast'
+        img?.attr("src", "")
+      error: ->
+        $("#adminUploadModal .alert-error > span").text "Błąd wysyłania"
         $("#adminUploadModal .alert-error").show 'fast'
   $("#adminUploadModal").modal 'show'
 
@@ -331,20 +351,25 @@ PORTAL.Admin.editService = (element) ->
 PORTAL.Admin.editLayer = (element) ->
   layerId = element.data("id")
   treeTextItem = element.parent().siblings("h3,h4,label")
-  $("#adminEditName").val treeTextItem.text()
-  $("#adminEditModal .modal-footer a").off("click").on "click", ->
-    if canSaveEdit()
-      $("#adminEditModal .modal-footer a").attr "disabled", true
-      name = $("#adminEditName").val()
+  toggler = element.parent().siblings("input")
+  dbLayer = (layer for layer in PORTAL.Layers.list when layer.index == toggler.attr("id").split("-").slice(1).join("-"))[0]
+  $("#adminEditLayerName").val treeTextItem.text()
+  $("#adminEditLayerQueryable").attr("checked", !!dbLayer.queryable)
+  $("#adminEditLayerModal .modal-footer a").off("click").on "click", ->
+    if canSaveLayerEdit()
+      $("#adminEditLayerModal .modal-footer a").attr "disabled", true
+      name = $("#adminEditLayerName").val()
+      queryable = $("#adminEditLayerQueryable").is(":checked")
       $.ajax {
         type: "PUT",
         url: "admin/editLayer",
-        data: {id: layerId, name: name},
+        data: {id: layerId, name: name, queryable: queryable},
         success: (result) ->
           treeTextItem.text name
-          $("#adminEditModal").modal "hide"
+          dbLayer.querable = queryable
+          $("#adminEditLayerModal").modal "hide"
       }
-  $("#adminEditModal").modal 'show'
+  $("#adminEditLayerModal").modal 'show'
 
 PORTAL.Admin.editLocation = (element) ->
   locationId = element.data("id")
@@ -369,7 +394,8 @@ PORTAL.Admin.editLogoLayer = (element) ->
   treeTextItem = element.parent().siblings("h3,h4,label")
   input = $("<input/>", {type: "hidden", name: "id", value: layerId})
   $("#adminUploadModal form").append(input)
-  $("#adminUploadModal form").attr("action","/admin/uploadLogo")
+  $("#adminUploadModal form").attr("action","/admin/uploadLayerLogo")
+  $("#adminUploadModal .modal-header h3").text(PORTAL.messages.logo)
   $("#adminUploadModal iframe").off("load").on "load", ->
     if $(this).contents().text().length
       $("#adminUploadModal").find(".spinner, .alert").hide()
@@ -380,5 +406,54 @@ PORTAL.Admin.editLogoLayer = (element) ->
         img?.attr("src", result.attr("src"))
       else
         $("#adminUploadModal .alert-error > span").text $(this).contents().find("title").text()
+        $("#adminUploadModal .alert-error").show 'fast'
+  $("#adminUploadModal #removeFile").off("click").on "click", ->
+    $("#adminUploadModal").find(".spinner").show()
+    $.ajax
+      type: "DELETE"
+      url: "/admin/deleteLayerLogo"
+      data: {id: layerId}
+      success: ->
+        $("#adminUploadModal").find(".spinner, .alert").hide()
+        $("#adminUploadModal .alert-success").show 'fast'
+        img = element.closest(".tier2").find(".service-showlocation > img")
+        img?.attr("src", "")
+      error: ->
+        $("#adminUploadModal .alert-error > span").text "Błąd wysyłania"
+        $("#adminUploadModal .alert-error").show 'fast'
+  $("#adminUploadModal").modal 'show'
+
+PORTAL.Admin.editLogoSource = (element) ->
+  sourceId = element.data("id")
+  treeTextItem = element.parent().siblings("h3,h4,label")
+  input = $("<input/>", {type: "hidden", name: "id", value: sourceId})
+  $("#adminUploadModal form").append(input)
+  $("#adminUploadModal form").attr("action","/admin/uploadSourceLogo")
+  $("#adminUploadModal .modal-header h3").text(PORTAL.messages.logo)
+
+  $("#adminUploadModal iframe").off("load").on "load", ->
+    if $(this).contents().text().length
+      $("#adminUploadModal").find(".spinner, .alert").hide()
+      result = $(this).contents().find("img.result")
+      img = element.closest(".tier1").find(".service-showlocation > img")
+      if result.length
+        $("#adminUploadModal .alert-success").show 'fast'
+        img?.attr("src", result.attr("src"))
+      else
+        $("#adminUploadModal .alert-error > span").text $(this).contents().find("title").text()
+        $("#adminUploadModal .alert-error").show 'fast'
+  $("#adminUploadModal #removeFile").off("click").on "click", ->
+    $("#adminUploadModal").find(".spinner").show()
+    $.ajax
+      type: "DELETE"
+      url: "/admin/deleteSourceLogo"
+      data: {id: sourceId}
+      success: ->
+        $("#adminUploadModal").find(".spinner, .alert").hide()
+        $("#adminUploadModal .alert-success").show 'fast'
+        img = element.closest(".tier1").find(".service-showlocation > img")
+        img?.attr("src", "")
+      error: ->
+        $("#adminUploadModal .alert-error > span").text "Błąd wysyłania"
         $("#adminUploadModal .alert-error").show 'fast'
   $("#adminUploadModal").modal 'show'

@@ -53,6 +53,7 @@ createMapEventListeners = ->
 ###########################################################
 
 createMap = ->
+  OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url="
   OpenLayers.Util.onImageLoadError = -> @src = "/public/images/blank.png"
   PORTAL.map = new OpenLayers.Map "open_layers_map", {
     controls: [],

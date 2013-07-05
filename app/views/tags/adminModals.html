@@ -70,6 +70,24 @@
     </div>
 </div>
 
+<div class="modal fade hide" id="adminEditLayerModal">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal">&times;</button>
+        <h3>&{"app.admin.edit"}</h3>
+    </div>
+    <div class="modal-body">
+        <form>
+            <label>&{"app.admin.name"}</label>
+            <input id="adminEditLayerName" type="text" />
+            <label><input id="adminEditLayerQueryable" type="checkbox" /> &{"app.admin.queryable"}</label>
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn btn-primary">&{"app.admin.saveButton"}</a>
+    </div>
+</div>
+
 <div class="modal fade hide" id="adminAddLocationModal">
   <div class="modal-header">
     <button class="close" data-dismiss="modal">&times;</button>
@@ -97,6 +115,7 @@
       <input id="uploadFile" name="uploadFile" type="file" />
       <label></label>
       <input class="btn btn-primary" type="submit" value="&{"app.admin.uploadModalSend"}"/>
+      <input id="removeFile" class="btn btn-danger" type="button" value="&{"app.admin.uploadModalRemove"}"/>
       <input class="hide" type="reset">
     </form>
     <img class="spinner" src="@{'/public/images/spinner.gif'}" alt=""/>
@@ -115,6 +134,7 @@
     <a href="#" class="btn btn-primary">&{"app.admin.uploadModalConfirm"}</a>
   </div>
 </div>
+
 <div class="modal fade hide" id="adminArmsModal">
   <div class="modal-header">
     <button class="close" data-dismiss="modal">&times;</button>
@@ -148,6 +168,7 @@
     <a href="#" class="btn btn-primary">&{"app.admin.armsModalConfirm"}</a>
   </div>
 </div>
+
 <div class="modal fade hide" id="adminBBoxModal">
   <div class="modal-header">
     <button class="close" data-dismiss="modal">&times;</button>
@@ -169,6 +190,7 @@
     <a href="#" class="btn btn-primary">&{"app.admin.boundingBoxModalConfirm"}</a>
   </div>
 </div>
+
 <div class="modal fade hide" id="adminResolutionsModal">
   <div class="modal-header">
     <button class="close" data-dismiss="modal">&times;</button>
@@ -184,6 +206,7 @@
     <a href="#" class="btn btn-primary">&{"app.admin.resolutionsModalConfirm"}</a>
   </div>
 </div>
+
 <div class="modal fade hide" id="adminMaxResolutionModal">
     <div class="modal-header">
         <button class="close" data-dismiss="modal">&times;</button>
@@ -199,6 +222,7 @@
         <a href="#" class="btn btn-primary">&{"app.admin.maxResolutionModalConfirm"}</a>
     </div>
 </div>
+
 <div class="modal fade hide" id="adminZoomLevelsModal">
     <div class="modal-header">
         <button class="close" data-dismiss="modal">&times;</button>

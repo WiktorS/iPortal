@@ -28,9 +28,14 @@ PUT     /admin/changeBoundingBox                Admin.changeBoundingBox
 PUT     /admin/changeResolutions                Admin.changeResolutions
 PUT     /admin/changeMaxResolution              Admin.changeMaxResolution
 PUT     /admin/changeZoomLevels                 Admin.changeZoomLevels
-POST    /admin/uploadArms                       Admin.uploadArms
 POST    /admin/uploadOwnerArms                  Admin.uploadOwnerArms
-POST    /admin/uploadLogo                       Admin.uploadLogo
+
+POST    /admin/uploadArms                       Admin.uploadArms
+POST    /admin/uploadLayerLogo                  Admin.uploadLayerLogo
+POST    /admin/uploadSourceLogo                 Admin.uploadSourceLogo
+DELETE  /admin/deleteArms                       Admin.deleteArms
+DELETE  /admin/deleteLayerLogo                  Admin.deleteLayerLogo
+DELETE  /admin/deleteSourceLogo                 Admin.deleteSourceLogo
 
 # Systherm Installation
 GET    {installation}.${domain}/?               SysthermInstallation.index
@@ -40,6 +45,11 @@ GET    /systherm/{installation}                 SysthermInstallation.index
 GET     /getCapabilities/{serviceUrl}           CapabilitiesGetter.getCapabilities
 GET     /x/{x}/y/{y}/z/{z}                      Application.index
 GET     /                                       Application.index
+
+#{ if (play.mode.isDev()) }
+#Proxy
+GET     /cgi-bin/proxy.cgi                      Application.proxy
+#{/if}
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

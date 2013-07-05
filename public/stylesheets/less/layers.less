@@ -11,6 +11,7 @@
 
   .tier2 {
     margin-top: 3px;
+    margin-left: 20px;
   }
 
   .tier3 {
@@ -18,9 +19,17 @@
     margin-bottom: 3px;
   }
 
+  .tier3_header {
+    img.arms, img.layer-logo {
+      margin-right: 0px;
+    }
+  }
+
   label, h3, h4, h5 {
-    display: inline;
+    display: table;
     cursor: pointer;
+    line-height: 26px;
+    margin-bottom: 0;
   }
 
   h3 {
@@ -30,10 +39,15 @@
 
   i {
     cursor: pointer;
+    margin-top: 6px;
   }
 
   input[type="checkbox"] {
     margin-right: 6px;
+    margin-left: 5px;
+    margin-top: 7px;
+    margin-top: 4px\9; //IE 8+
+    *margin-top: 4px;  //IE 7
   }
   input[type="checkbox"].state-middle {
     opacity: 0.5;
@@ -54,6 +68,16 @@
 
   .tier1_content, .tier2_content {
     display: none;
+  }
+
+  img.arms, img.layer-logo {
+    margin-right: 4px;
+  }
+
+  .service-add {
+    margin-top: 5px;
+    margin-left: 25px;
+    margin-bottom: 2px;
   }
 }
 

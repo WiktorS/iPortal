@@ -25,6 +25,8 @@ public class MapLayer extends Model {
 
     public Long sort;
 
+    public boolean queryable;
+
     @ManyToOne
     public MapService mapService;
 

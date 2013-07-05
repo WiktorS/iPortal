@@ -42,17 +42,17 @@ addWmsView = (srcId, wmsId) ->
 
   tier2 = $("<div/>", {class: "tier2"})
   tier2Header = $("<div/>", {class: "tier2_header clearfix"})
-  plus = $("<i/>", {class: "icon-plus icon-white", click: -> PORTAL.Handlers.treeClick $(this)})
-  input = $("<input/>", {id: "toggler-"+srcId+"-"+wmsId, type: "checkbox", class: "wms-toggler", change: -> PORTAL.Handlers.wmsToggled $(this)})
-  a = $("<a/>", {href :"#", class: "service-showlocation", "data-id": wmsId, "data-location": "||"})
-  img = $("<img/>", {src: "/public/images/arms_default.png"})
+  plus = $("<i/>", {class: "icon-plus icon-white pull-left", click: -> PORTAL.Handlers.treeClick $(this)})
+  input = $("<input/>", {id: "toggler-"+srcId+"-"+wmsId, type: "checkbox", class: "wms-toggler pull-left", change: -> PORTAL.Handlers.wmsToggled $(this)})
+  a = $("<a/>", {href :"#", class: "service-showlocation pull-left", "data-id": wmsId, "data-location": "||"})
+  img = $("<img/>", {class: "arms", src: "/public/images/arms_default.png"})
   h4 = $("<h4/>", {html: wmsVisibleName, click: -> PORTAL.Handlers.treeClick $(this)})
   pull_right = $("<div/>", {class: "pull-right"})
   remove = $("<i/>", {class: "service-remove icon-remove icon-white", "data-id": wmsId , click: -> PORTAL.Handlers.removeWms $(this)})
   tier2Content = $("<div/>", {class: "tier2_content"})
   PORTAL.Handlers.sort tier2Content
 
-  tier2Header.append(plus).append(" ").append(input).append(" ").append(a.append(img)).append(" ").append(h4).append(pull_right.append(remove))
+  tier2Header.append(plus).append(" ").append(input).append(" ").append(a.append(img)).append(" ").append(pull_right.append(remove)).append(h4)
   tier2.append(tier2Header).append(tier2Content)
   $('#toggler-' + srcId).parent().parent().children(".tier1_content").append tier2
 
@@ -76,12 +76,12 @@ PORTAL.Layers.getLayerNames = ->
 
 createLayerView = (srcId, wmsId, layerId, layerTitle) ->
   tier3 = $("<div/>", {class: "tier3"})
-  tier3Content = $("<div/>", {class: "tier3_content clearfix"})
-  input = $("<input/>", {id: "toggler-"+srcId+"-"+wmsId+"-"+layerId, type: "checkbox", class: "layer-toggler", change: -> PORTAL.Handlers.layerToggled $(this)})
+  tier3Content = $("<div/>", {class: "tier3_header clearfix"})
+  input = $("<input/>", {id: "toggler-"+srcId+"-"+wmsId+"-"+layerId, type: "checkbox", class: "layer-toggler pull-left", change: -> PORTAL.Handlers.layerToggled $(this)})
   label = $("<label/>", {for: "toggler-"+srcId+"-"+wmsId+"-"+layerId, text: layerTitle})
   pull_right = $("<div/>", {class: "pull-right"})
   remove = $("<i/>", {class: "layer-remove icon-remove icon-white", "data-id": layerId, click: -> PORTAL.Handlers.removeLayer $(this)})
-  tier3.append tier3Content.append(input).append(label).append(pull_right.append(remove))
+  tier3.append tier3Content.append(input).append(pull_right.append(remove)).append(label)
 
 sortLayers = -> PORTAL.Utils.sortLayers()
 

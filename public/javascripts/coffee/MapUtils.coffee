@@ -32,9 +32,9 @@ PORTAL.Utils.sortLayers = ->
   $("#app_layers .tier3 input").each (i, e) ->
     layer = PORTAL.Utils.findLayer PORTAL.Utils.buildIdWithPrefix($(this).attr("id"), "layer")
     listOfLayers.push {
-    layer: layer
-    oldVisibility: layer.getVisibility(),
-    newZIndex: layersCount - i
+      layer: layer
+      oldVisibility: layer.getVisibility(),
+      newZIndex: layersCount - i
     }
     layer.setVisibility false
   PORTAL.map.setLayerIndex layer.layer, layer.newZIndex for layer in listOfLayers

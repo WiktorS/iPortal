@@ -23,7 +23,3 @@ PORTAL.tooltips = ->
     title: PORTAL.messages.view,
     placement: "bottom"
   }
-  $(".layer-logo").tooltip {
-    title: PORTAL.messages.layerLogo,
-    placement: "bottom"
-  }

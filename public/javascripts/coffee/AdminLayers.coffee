@@ -27,7 +27,7 @@ PORTAL.Layers.registerWms = (srcId) ->
 
 PORTAL.Layers.addOLLayers = (srcId, wmsId) ->
   layers = []
-  layers.push {'mapService.id': ''+wmsId, 'name': layer.name, 'displayName': layer.title, 'defaultVisible': true} for layer in PORTAL.Layers.getLayerNames()
+  layers.push {'mapService.id': ''+wmsId, 'name': layer.name, 'displayName': layer.title, 'defaultVisible': true, 'queryable': !!layer.queryable} for layer in PORTAL.Layers.getLayerNames()
   $.ajax {
     type: "POST",
     url: "admin/addLayers",
@@ -35,7 +35,7 @@ PORTAL.Layers.addOLLayers = (srcId, wmsId) ->
     success: (result) ->
       PORTAL.Layers.doAddLayersView srcId, wmsId, result
       $.each result, (i, layer) ->
-        $("#toggler-"+srcId+"-"+wmsId+"-"+layer.id).parents(".tier3_content").find(".pull-right > i.layer-remove").on "click", -> PORTAL.Admin.deleteLayer $(this)
+        $("#toggler-"+srcId+"-"+wmsId+"-"+layer.id).parents(".tier3_header").find(".pull-right > i.layer-remove").on "click", -> PORTAL.Admin.deleteLayer $(this)
         edit = $("<i/>", {
           class: "layer-edit icon-white icon-pencil",
           "data-id" : layer.id,
@@ -46,5 +46,5 @@ PORTAL.Layers.addOLLayers = (srcId, wmsId) ->
           "data-id": layer.id,
           click: -> PORTAL.Admin.defaultLayer $(this)
         })
-        $("#toggler-"+srcId+"-"+wmsId+"-"+layer.id).parents(".tier3_content").find(".pull-right").prepend(" ").prepend(edit).prepend(" ").prepend(defaultVisible)
+        $("#toggler-"+srcId+"-"+wmsId+"-"+layer.id).parents(".tier3_header").find(".pull-right").prepend(" ").prepend(edit).prepend(" ").prepend(defaultVisible)
   }

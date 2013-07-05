@@ -4,6 +4,7 @@ import models.*;
 import play.mvc.Controller;
 import play.mvc.With;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -43,6 +44,10 @@ public class SysthermInstallation extends Controller {
         renderArgs.put("systhermSourceId", service.mapSource.id);
         renderArgs.put("systhermServiceId", service.id);
         MapLayer layer = MapLayerCollection.getInstance().getByNameFromMapService(service, "gminy");
+        if (layer==null) {
+            Iterator<MapLayer> mapLayerIterator = service.layers.iterator();
+            layer = mapLayerIterator.next();
+        }
         if (layer!=null) {
             renderArgs.put("systhermLayerId", layer.id);
         }
