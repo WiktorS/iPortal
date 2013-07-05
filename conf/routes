@@ -46,6 +46,9 @@ GET     /getCapabilities/{serviceUrl}           CapabilitiesGetter.getCapabiliti
 GET     /x/{x}/y/{y}/z/{z}                      Application.index
 GET     /                                       Application.index
 
+#Status
+GET     /ws_status.xml                         Systherm.status
+
 #{ if (play.mode.isDev()) }
 #Proxy
 GET     /cgi-bin/proxy.cgi                      Application.proxy
