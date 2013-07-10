@@ -4,9 +4,14 @@
 
 #{list _sources, as:'source'}
 #{if _admin || models.MapSourceCollection.getInstance().canBeUsed(source, _installation)}
-<div class="tier1">
-
-  <div class="tier1_header clearfix">
+%{
+    sourceClass = ""
+    if (!_admin && source.webMapServices.size() == 1) {
+        sourceClass = "singleSource"
+    }
+}%
+<div class="tier1 ${sourceClass}">
+  <div class="tier1_header clearfix ${sourceClass}">
     <i class="icon-plus icon-white pull-left"></i>
     <input id="toggler-${source.id}" type="checkbox" class="source-toggler pull-left" />
     #{if source.logo}
@@ -24,7 +29,7 @@
     <h3>${source.displayName}</h3>
   </div>
 
-  <div class="tier1_content">
+  <div class="tier1_content ${sourceClass}">
   #{if _admin}
     <button class="service-add btn" type="button" data-id="${source.id}">&{"app.admin.addWMS"}</button>
   #{/if}

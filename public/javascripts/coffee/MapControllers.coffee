@@ -65,7 +65,6 @@ PORTAL.createControllers = ->
     url: null,
     queryVisible: false
   PORTAL.map.addControl infoControl
-#  PORTAL.map.addControl new OpenLayers.Control.LayerSwitcher()
   infoControl.events.register "getfeatureinfo", this, (evt) ->
     $("#wmsQueryResult").html evt.text
     $("#wmsQueryResult").find("style").remove()
