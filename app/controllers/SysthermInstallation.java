@@ -25,11 +25,15 @@ public class SysthermInstallation extends Controller {
             sidebar = true;
         installation = installation.replaceFirst("^www\\.", "");
         MapService service = MapServiceCollection.getInstance().findByName(installation);
-        if (service==null) {
+        MapSource source = MapSourceCollection.getInstance().findByName("systherm_" + installation);
+        if (service==null && source == null) {
             notFound(installation);
         }
         List<MapSource> sources = MapSourceCollection.getInstance().allSortedBy("sort, id");
         List<MapLocation> locations = MapLocationCollection.getInstance().topLevel();
+        if (service == null) {
+            service = source.webMapServices.iterator().next();
+        }
         sendAdditionalArgumentsToTemplate(service);
         renderTemplate("Application/index.html", sources, locations, installation, logo, sidebar);
     }

@@ -3,7 +3,7 @@
 #{/if}
 
 #{list _sources, as:'source'}
-#{if _admin || models.MapSourceCollection.getInstance().canBeUsed(source)}
+#{if _admin || models.MapSourceCollection.getInstance().canBeUsed(source, _installation)}
 <div class="tier1">
 
   <div class="tier1_header clearfix">
