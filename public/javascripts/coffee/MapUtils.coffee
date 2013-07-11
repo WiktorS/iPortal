@@ -58,10 +58,9 @@ PORTAL.Utils.systhermInstallation = ->
   layerElement = $("#toggler-"+sourceId+"-"+serviceId+"-"+layerId)
   if !layerElement.is(":checked")
     layerElement.click();
-  if (!sourceElement.parent().hasClass("singleSource")) {
+  if (!sourceElement.parent().hasClass("singleSource"))
     sourceElement.siblings("i").click();
     serviceElement.siblings("i").click();
-  }
 
 
 priv = {}
