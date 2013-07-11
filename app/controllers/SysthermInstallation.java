@@ -39,9 +39,9 @@ public class SysthermInstallation extends Controller {
     }
 
     private static void sendAdditionalArgumentsToTemplate(MapService service) {
-        renderArgs.put("mapInitialX", service.yCoordinate);
-        renderArgs.put("mapInitialY", service.xCoordinate);
-        renderArgs.put("mapInitialZ", service.zoomLevel);
+        renderArgs.put("mapInitialX", service.yCoordinate != null ? service.yCoordinate : MapSetting.getValue(MapSetting.MAP_INITIAL_Y_COORDINATE, "460000"));
+        renderArgs.put("mapInitialY", service.xCoordinate != null ? service.xCoordinate : MapSetting.getValue(MapSetting.MAP_INITIAL_X_COORDINATE, "500000"));
+        renderArgs.put("mapInitialZ", service.zoomLevel != null ? service.zoomLevel : MapSetting.getValue(MapSetting.MAP_INITIAL_Z, "0"));
         renderArgs.put("systhermInstallation", service.name);
         renderArgs.put("systhermInstallationTitle", service.armsTitle);
         renderArgs.put("systhermInstallationArms", service.coatOfArms);
