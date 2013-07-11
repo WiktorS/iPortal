@@ -14,6 +14,9 @@
     #{if play.mvc.Scope.RenderArgs.current().systhermInstallationArms}
     <img id="app_arms" src="@{'/public/images/arms'}/${play.mvc.Scope.RenderArgs.current().systhermInstallationArms}" alt="${play.mvc.Scope.RenderArgs.current().systhermInstallation}" />
     #{/if}
+    #{if play.mvc.Scope.RenderArgs.current().systhermInstallationLogo}
+    <img id="app_arms" src="@{'/public/images/sources'}/${play.mvc.Scope.RenderArgs.current().systhermInstallationLogo}" alt="${play.mvc.Scope.RenderArgs.current().systhermInstallationTitle}" />
+    #{/if}
     #{if play.mvc.Scope.RenderArgs.current().systhermInstallationTitle}
         <h1 id="app_title">${play.mvc.Scope.RenderArgs.current().systhermInstallationTitle}</h1>
     #{/if}

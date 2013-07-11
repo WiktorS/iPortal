@@ -34,17 +34,21 @@ public class SysthermInstallation extends Controller {
         if (service == null) {
             service = source.webMapServices.iterator().next();
         }
-        sendAdditionalArgumentsToTemplate(service);
+        sendAdditionalArgumentsToTemplate(service, source != null);
         renderTemplate("Application/index.html", sources, locations, installation, logo, sidebar);
     }
 
-    private static void sendAdditionalArgumentsToTemplate(MapService service) {
+    private static void sendAdditionalArgumentsToTemplate(MapService service, boolean useSource) {
         renderArgs.put("mapInitialX", service.yCoordinate != null ? service.yCoordinate : MapSetting.getValue(MapSetting.MAP_INITIAL_Y_COORDINATE, "460000"));
         renderArgs.put("mapInitialY", service.xCoordinate != null ? service.xCoordinate : MapSetting.getValue(MapSetting.MAP_INITIAL_X_COORDINATE, "500000"));
         renderArgs.put("mapInitialZ", service.zoomLevel != null ? service.zoomLevel : MapSetting.getValue(MapSetting.MAP_INITIAL_Z, "0"));
-        renderArgs.put("systhermInstallation", service.name);
-        renderArgs.put("systhermInstallationTitle", service.armsTitle);
-        renderArgs.put("systhermInstallationArms", service.coatOfArms);
+        renderArgs.put("systhermInstallation", useSource ? service.mapSource.name : service.name);
+        renderArgs.put("systhermInstallationTitle", useSource ? service.mapSource.displayName : service.armsTitle);
+        if (useSource) {
+            renderArgs.put("systhermInstallationLogo", service.mapSource.logo);
+        } else {
+            renderArgs.put("systhermInstallationArms", service.coatOfArms);
+        }
         renderArgs.put("systhermSourceId", service.mapSource.id);
         renderArgs.put("systhermServiceId", service.id);
         MapLayer layer = MapLayerCollection.getInstance().getByNameFromMapService(service, "gminy");
