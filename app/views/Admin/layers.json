@@ -1,9 +1,16 @@
 [
 #{list layers, as: 'layer'}
+%{
+  queryable = "false"
+  if (layer.queryable != null && layer.queryable) {
+    queryable = "true"
+  }
+}%
     {
         "id": "${layer.id}",
         "name": "${layer.name}",
-        "displayName": "${layer.displayName}"
+        "displayName": "${layer.displayName}",
+        "queryable": ${queryable}
     }
     #{if !layer_isLast},#{/if}
 #{/list}

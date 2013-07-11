@@ -62,7 +62,7 @@ setMapOnServiceLocation = (element) ->
 
 PORTAL.Layers.doAddLayersView = (srcId, wmsId, layers) ->
   elem = $('#toggler-'+srcId+'-'+wmsId).parent().parent().children(".tier2_content")
-  elem.append createLayerView srcId, wmsId, layer.id, layer.displayName for layer in layers
+  elem.append createLayerView srcId, wmsId, layer.id, layer.displayName, layer.queryable for layer in layers
   PORTAL.Utils.addLayer buildLayerObject srcId, wmsId, layer for layer in layers
   sortLayers()
   cleanUpModal()
@@ -71,13 +71,17 @@ PORTAL.Layers.getLayerNames = ->
   layerNames = []
   $("#addWmsLayerNames button").each ->
     if $(this).val().length && $(this).children("i").hasClass("icon-ok")
-      layerNames.push { name: $(this).val(), title: $(this).siblings("span").text() }
+      layerNames.push
+        name: $(this).val()
+        title: $(this).siblings("span").text()
+        queryable: !!$(this).data("queryable")
   return layerNames
 
-createLayerView = (srcId, wmsId, layerId, layerTitle) ->
+createLayerView = (srcId, wmsId, layerId, layerTitle, queryable) ->
   tier3 = $("<div/>", {class: "tier3"})
   tier3Content = $("<div/>", {class: "tier3_header clearfix"})
   input = $("<input/>", {id: "toggler-"+srcId+"-"+wmsId+"-"+layerId, type: "checkbox", class: "layer-toggler pull-left", change: -> PORTAL.Handlers.layerToggled $(this)})
+  input.data("queryable", queryable)
   label = $("<label/>", {for: "toggler-"+srcId+"-"+wmsId+"-"+layerId, text: layerTitle})
   pull_right = $("<div/>", {class: "pull-right"})
   remove = $("<i/>", {class: "layer-remove icon-remove icon-white", "data-id": layerId, click: -> PORTAL.Handlers.removeLayer $(this)})
@@ -140,6 +144,7 @@ priv.addLayer = (layer) ->
   div = $("<div/>")
   span = $("<span/>", { html: title ? name })
   button = $("<button/>", { class: "own-layer-name btn btn-mini", type: "button", value: name, click: -> PORTAL.Handlers.checkLayerToAdd $(this) })
+  button.data("queryable", priv.isQueryable(layer))
   icon = $("<i/>", { class: "icon-ok" })
   $("#addWmsLayerNames").append(div.append(span, button.append(icon)))
 

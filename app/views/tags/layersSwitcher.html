@@ -62,7 +62,7 @@
       #{if _admin || layer.canBeUsed}
         <div class="tier3">
           <div class="tier3_header clearfix">
-            <input id="toggler-${source.id}-${service.id}-${layer.id}" type="checkbox" class="layer-toggler pull-left" />
+            <input id="toggler-${source.id}-${service.id}-${layer.id}" type="checkbox" class="layer-toggler pull-left" data-queryable="${layer.queryable}"/>
             #{if layer.logo}
             <div class="pull-left">
                 <img class="layer-logo" alt="${layer.displayName}" src="@{'/public/images/layers'}/${layer.logo}" />&nbsp;

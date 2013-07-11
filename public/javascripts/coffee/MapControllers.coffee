@@ -73,15 +73,15 @@ PORTAL.createControllers = ->
       .addClass("table-bordered")
       .addClass("table-hover")
       .addClass("table-striped")
+    $("#wmsQueryResult a[href^='http://']").attr("target","_blank")
     if evt.text.indexOf("ServiceException") == -1 && !$("#wmsQueryResult").find("table").length
       $("#wmsQueryResult").html "Brak danych"
     $("#wmsInformation").modal()
   infoControl.events.register "beforegetfeatureinfo", this, (evt) ->
     activeLayers = []
     $("#app_layers .tier3 input").each (i, e) ->
-      dbLayer = (layer for layer in PORTAL.Layers.list when layer.index == $(this).attr("id").split("-").slice(1).join("-"))[0]
       mapLayer = PORTAL.Utils.findLayer PORTAL.Utils.buildIdWithPrefix($(this).attr("id"), "layer")
-      if mapLayer.getVisibility() && !!dbLayer.queryable
+      if mapLayer.getVisibility() && $(this).data("queryable")
         activeLayers.push mapLayer
     infoControl.layers = activeLayers
     infoControl.url = null

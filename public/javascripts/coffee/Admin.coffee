@@ -351,10 +351,10 @@ PORTAL.Admin.editService = (element) ->
 PORTAL.Admin.editLayer = (element) ->
   layerId = element.data("id")
   treeTextItem = element.parent().siblings("h3,h4,label")
+  queryable = element.parent().siblings("input").data("queryable")
   toggler = element.parent().siblings("input")
-  dbLayer = (layer for layer in PORTAL.Layers.list when layer.index == toggler.attr("id").split("-").slice(1).join("-"))[0]
   $("#adminEditLayerName").val treeTextItem.text()
-  $("#adminEditLayerQueryable").attr("checked", !!dbLayer.queryable)
+  $("#adminEditLayerQueryable").attr("checked", queryable)
   $("#adminEditLayerModal .modal-footer a").off("click").on "click", ->
     if canSaveLayerEdit()
       $("#adminEditLayerModal .modal-footer a").attr "disabled", true
@@ -366,7 +366,7 @@ PORTAL.Admin.editLayer = (element) ->
         data: {id: layerId, name: name, queryable: queryable},
         success: (result) ->
           treeTextItem.text name
-          dbLayer.querable = queryable
+          element.parent().siblings("input").data("queryable", queryable)
           $("#adminEditLayerModal").modal "hide"
       }
   $("#adminEditLayerModal").modal 'show'
