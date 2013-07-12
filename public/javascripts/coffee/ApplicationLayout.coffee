@@ -30,5 +30,5 @@ PORTAL.setTopLevelLayout = ->
 
   arms = $("#app_header .arms").not(".background")
   armsBackground = $("#app_header .arms.background")
-  armsBackground.width logo.width()
+  armsBackground.width (logo.width() + 50)
   armsBackground.height logo.height()
