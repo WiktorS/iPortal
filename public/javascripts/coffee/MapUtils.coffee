@@ -60,7 +60,8 @@ PORTAL.Utils.systhermInstallation = ->
     layerElement.click();
   if (!sourceElement.parent().hasClass("singleSource"))
     sourceElement.siblings("i").click();
-    serviceElement.siblings("i").click();
+    if !PORTAL.configurationSettings.sourceInstallation
+      serviceElement.siblings("i").click();
 
 
 priv = {}
