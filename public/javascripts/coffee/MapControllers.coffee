@@ -137,33 +137,49 @@ PORTAL.createControllers = ->
   $("#open_layers_button_info").tooltip {
     title: PORTAL.messages.objectInfo,
     placement: "bottom"
+    container: "#open_layers_map"
+    trigger: "hover"
   }
   $("#open_layers_button_history_prev").tooltip {
     title: PORTAL.messages.historyPrev,
     placement: "bottom"
+    container: "#open_layers_map"
+    trigger: "hover"
   }
   $("#open_layers_button_history_next").tooltip {
     title: PORTAL.messages.historyNext,
     placement: "bottom"
+    container: "#open_layers_map"
+    trigger: "hover"
   }
   $("#open_layers_button_extent").tooltip {
     title: PORTAL.messages.zoomToExtent,
     placement: "bottom"
+    container: "#open_layers_map"
+    trigger: "hover"
   }
   $("#open_layers_button_zoom_in").tooltip {
     title: PORTAL.messages.zoomIn,
     placement: "bottom"
+    container: "#open_layers_map"
+    trigger: "hover"
   }
   $("#open_layers_button_save_url").tooltip {
     title: PORTAL.messages.saveUrl,
     placement: "bottom"
+    container: "#open_layers_map"
+    trigger: "hover"
   }
   $("#open_layers_button_go_to_location").tooltip {
     title: PORTAL.messages.goToLocation,
     placement: "bottom"
+    container: "#open_layers_map"
+    trigger: "hover"
   }
 
   $("#open_layers_button_help").tooltip {
-  title: PORTAL.messages.help,
-  placement: "bottom"
+    title: PORTAL.messages.help,
+    placement: "bottom"
+    container: "#open_layers_map"
+    trigger: "hover"
   }
