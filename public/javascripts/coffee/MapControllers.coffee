@@ -90,6 +90,8 @@ PORTAL.createControllers = ->
       $("#wmsInformation").modal()
 
   $("#open_layers_button_info").click ->
+    PORTAL.zoomIn.deactivate()
+    $("#open_layers_button_zoom_in").removeClass("active")
     if !$(this).hasClass("active")
       infoControl.activate()
     else
@@ -113,6 +115,8 @@ PORTAL.createControllers = ->
       PORTAL.map.zoomToMaxExtent()
 
   $("#open_layers_button_zoom_in").click ->
+    infoControl.deactivate()
+    $("#open_layers_button_info").removeClass("active")
     $(this).toggleClass "active"
     if $(this).hasClass "active"
       PORTAL.zoomIn.activate()
@@ -130,7 +134,10 @@ PORTAL.createControllers = ->
 
   $("#getUrlModal a").click -> $("#getUrlModal").modal "hide"
 
-
+  $("#open_layers_button_info").tooltip {
+    title: PORTAL.messages.objectInfo,
+    placement: "bottom"
+  }
   $("#open_layers_button_history_prev").tooltip {
     title: PORTAL.messages.historyPrev,
     placement: "bottom"

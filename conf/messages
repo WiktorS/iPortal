@@ -15,6 +15,7 @@ app.ownWms.loadLayers=Wczytaj warstwy
 app.ownWms.loadLayersFailure=Wystąpił błąd podczas wczytywania warstw
 app.ownWms.modalConfirm=Dodaj
 
+app.controller.objectInfo=informacje o obiekcie
 app.controller.historyPrev=poprzedni widok
 app.controller.historyNext=następny widok
 app.controller.zoomToExtent=pokaż całość
