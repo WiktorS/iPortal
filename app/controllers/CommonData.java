@@ -31,5 +31,6 @@ public class CommonData extends Controller {
         renderArgs.put("systhermSourceId", 0);
         renderArgs.put("systhermServiceId", 0);
         renderArgs.put("systhermLayerId", 0);
+        renderArgs.put("sourceInstallation", "false");
     }
 }
